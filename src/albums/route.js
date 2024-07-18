@@ -1,5 +1,5 @@
 const {
-  addAlbumsHandler,
+  addAlbumHandler,
   editAlbumByIdHandler,
   getAlbumByIdHandler,
   deleteAlbumByIdHandler,
@@ -9,7 +9,7 @@ const routes = [
   {
     method: 'POST',
     path: '/albums',
-    handler: addAlbumsHandler,
+    handler: addAlbumHandler,
   },
   {
     method: 'GET',

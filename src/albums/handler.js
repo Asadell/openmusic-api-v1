@@ -1,7 +1,7 @@
 const { nanoid } = require('nanoid');
 const albums = require('./albums');
 
-const addAlbumsHandler = (request, h) => {
+const addAlbumHandler = (request, h) => {
   const { name, year } = request.payload;
   const id = nanoid(16);
 
@@ -101,7 +101,7 @@ const deleteAlbumByIdHandler = (request, h) => {
 };
 
 module.exports = {
-  addAlbumsHandler,
+  addAlbumHandler,
   editAlbumByIdHandler,
   getAlbumByIdHandler,
   deleteAlbumByIdHandler,
