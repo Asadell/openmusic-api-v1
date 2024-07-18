@@ -2,8 +2,7 @@ const { nanoid } = require('nanoid');
 const songs = require('./songs');
 
 const addSongHandler = (request, h) => {
-  console.log('halo');
-  const { title, year, genre, perfomer, duration, albumId } = request.params;
+  const { title, year, genre, performer, duration, albumId } = request.payload;
   const id = nanoid(16);
 
   const newSong = {
@@ -11,7 +10,7 @@ const addSongHandler = (request, h) => {
     title,
     year,
     genre,
-    perfomer,
+    performer,
     duration,
     albumId,
   };
@@ -19,7 +18,6 @@ const addSongHandler = (request, h) => {
   songs.push(newSong);
 
   const isSuccess = songs.filter((song) => song.id === id) > 0;
-
   if (isSuccess !== -1) {
     const response = h.response({
       status: 'success',
@@ -39,4 +37,19 @@ const addSongHandler = (request, h) => {
   return response;
 };
 
-module.exports = { addSongHandler };
+const getSongsHandler = () => {
+  const filteredSongs = songs.map((song) => ({
+    id: song.id,
+    title: song.title,
+    performer: song.performer,
+  }));
+  console.log(filteredSongs);
+  return {
+    status: 'success',
+    data: {
+      songs: filteredSongs,
+    },
+  };
+};
+
+module.exports = { addSongHandler, getSongsHandler };
