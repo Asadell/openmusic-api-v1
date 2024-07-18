@@ -1,8 +1,8 @@
 const {
   addAlbumsHandler,
   editAlbumByIdHandler,
-  // getNoteByIdHandler,
-  // deleteNoteByIdHandler,
+  getAlbumByIdHandler,
+  deleteAlbumByIdHandler,
 } = require('./handler');
 
 const routes = [
@@ -11,15 +11,20 @@ const routes = [
     path: '/albums',
     handler: addAlbumsHandler,
   },
-  // {
-  //   method: 'GET',
-  //   path: '/albums/{id}',
-  //   handler: editAlbumByIdHandler,
-  // },
+  {
+    method: 'GET',
+    path: '/albums/{id}',
+    handler: getAlbumByIdHandler,
+  },
   {
     method: 'PUT',
     path: '/albums/{id}',
     handler: editAlbumByIdHandler,
+  },
+  {
+    method: 'DELETE',
+    path: '/albums/{id}',
+    handler: deleteAlbumByIdHandler,
   },
 ];
 

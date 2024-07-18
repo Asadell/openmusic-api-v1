@@ -3,19 +3,18 @@ const albums = require('./albums');
 
 const addAlbumsHandler = (request, h) => {
   const { name, year } = request.payload;
-  const album_id = nanoid(16);
+  const id = nanoid(16);
 
-  const newAlbum = { album_id, name, year };
+  const newAlbum = { id, name, year };
   albums.push(newAlbum);
 
-  const isSuccess =
-    albums.filter((album) => album.album_id === album_id).length > 0;
+  const isSuccess = albums.filter((album) => album.id === id).length > 0;
 
   if (isSuccess) {
     const response = h.response({
       status: 'success',
       data: {
-        albumId: album_id,
+        albumId: id,
       },
     });
     response.code(201);
@@ -29,16 +28,38 @@ const addAlbumsHandler = (request, h) => {
   return response;
 };
 
+const getAlbumByIdHandler = (request, h) => {
+  const { id } = request.params;
+
+  const result = albums.filter((album) => album.id === id)[0];
+
+  if (result) {
+    return {
+      status: 'success',
+      data: {
+        album: result,
+      },
+    };
+  }
+
+  const response = h.response({
+    status: 'fail',
+    message: 'gagal - getAlbumByIdHandler',
+  });
+  response.code(404);
+  return response;
+};
+
 const editAlbumByIdHandler = (request, h) => {
   const { id } = request.params;
-  const { title, year } = request.payload;
+  const { name, year } = request.payload;
 
-  const index = albums.findIndex((album) => (album.album_id = id));
+  const index = albums.findIndex((album) => (album.id = id));
 
   if (index !== -1) {
     albums[index] = {
       ...albums[index],
-      title,
+      name,
       year,
     };
 
@@ -58,9 +79,30 @@ const editAlbumByIdHandler = (request, h) => {
   return response;
 };
 
+const deleteAlbumByIdHandler = (request, h) => {
+  const { id } = request.params;
+
+  const index = albums.findIndex((album) => album.id === id);
+
+  if (index !== -1) {
+    albums.splice(index, 1);
+    return {
+      status: 'success',
+      message: 'Berhasil menghapus id',
+    };
+  }
+
+  const response = h.response({
+    status: 'fail',
+    message: 'gagal menghapus album',
+  });
+  response.code(404);
+  return response;
+};
+
 module.exports = {
   addAlbumsHandler,
   editAlbumByIdHandler,
-  // getNoteByIdHandler,
-  // deleteNoteByIdHandler,
+  getAlbumByIdHandler,
+  deleteAlbumByIdHandler,
 };
