@@ -16,3 +16,8 @@ newman run Open-Music-API-V1-Test.postman_collection.json --folder 'Add Album wi
 
 "menjalankan request hanya untuk 'POST /albums' n 'DELETE /albums/{id}'"
 newman run Open-Music-API-V1-Test.postman_collection.json --folder 'Add Album with Valid Payload' --folder 'Get Detail Album with Valid Id' --folder 'Edit Album with Valid Id' --folder 'Delete Album with Valid Id' --environment OpenMusic-API-Test.postman_environment.json
+
+songs
+
+"menjalankan request hanya untuk 'POST /songs'"
+newman run Open-Music-API-V1-Test.postman_collection.json --folder 'Add Song with Valid Payload' --environment OpenMusic-API-Test.postman_environment.json

@@ -1,108 +1,42 @@
 const { nanoid } = require('nanoid');
-const albums = require('./albums');
+const songs = require('./songs');
 
-const addAlbumsHandler = (request, h) => {
-  const { name, year } = request.payload;
+const addSongHandler = (request, h) => {
+  console.log('halo');
+  const { title, year, genre, perfomer, duration, albumId } = request.params;
   const id = nanoid(16);
 
-  const newAlbum = { id, name, year };
-  albums.push(newAlbum);
+  const newSong = {
+    id,
+    title,
+    year,
+    genre,
+    perfomer,
+    duration,
+    albumId,
+  };
 
-  const isSuccess = albums.filter((album) => album.id === id).length > 0;
+  songs.push(newSong);
 
-  if (isSuccess) {
+  const isSuccess = songs.filter((song) => song.id === id) > 0;
+
+  if (isSuccess !== -1) {
     const response = h.response({
       status: 'success',
       data: {
-        albumId: id,
+        songId: id,
       },
     });
     response.code(201);
     return response;
   }
+
   const response = h.response({
-    status: 'fail',
-    message: 'Album gagal ditambahkan',
+    status: 'success',
+    message: 'gagal menambahkan lagu',
   });
   response.code(500);
   return response;
 };
 
-const getAlbumByIdHandler = (request, h) => {
-  const { id } = request.params;
-
-  const result = albums.filter((album) => album.id === id)[0];
-
-  if (result) {
-    return {
-      status: 'success',
-      data: {
-        album: result,
-      },
-    };
-  }
-
-  const response = h.response({
-    status: 'fail',
-    message: 'gagal - getAlbumByIdHandler',
-  });
-  response.code(404);
-  return response;
-};
-
-const editAlbumByIdHandler = (request, h) => {
-  const { id } = request.params;
-  const { name, year } = request.payload;
-
-  const index = albums.findIndex((album) => (album.id = id));
-
-  if (index !== -1) {
-    albums[index] = {
-      ...albums[index],
-      name,
-      year,
-    };
-
-    const response = h.response({
-      status: 'success',
-      message: 'Berhasil update album',
-    });
-    response.code(200);
-    return response;
-  }
-
-  const response = h.response({
-    status: 'fail',
-    message: 'Gagal update album, Id tidak ditemukan',
-  });
-  response.code(404);
-  return response;
-};
-
-const deleteAlbumByIdHandler = (request, h) => {
-  const { id } = request.params;
-
-  const index = albums.findIndex((album) => album.id === id);
-
-  if (index !== -1) {
-    albums.splice(index, 1);
-    return {
-      status: 'success',
-      message: 'Berhasil menghapus id',
-    };
-  }
-
-  const response = h.response({
-    status: 'fail',
-    message: 'gagal menghapus album',
-  });
-  response.code(404);
-  return response;
-};
-
-module.exports = {
-  addAlbumsHandler,
-  editAlbumByIdHandler,
-  getAlbumByIdHandler,
-  deleteAlbumByIdHandler,
-};
+module.exports = { addSongHandler };
