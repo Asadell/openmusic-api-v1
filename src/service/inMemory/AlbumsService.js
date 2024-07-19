@@ -1,3 +1,5 @@
+const { nanoid } = require('nanoid');
+
 class AlbumsService {
   constructor() {
     this._albums = [];
@@ -14,7 +16,8 @@ class AlbumsService {
 
     this._albums.push(newAlbum);
 
-    const isSuccess = this._albums.filter((album) => album.id === id) > 0;
+    const isSuccess =
+      this._albums.filter((album) => album.id === id).length > 0;
     if (!isSuccess) {
       throw new Error('Album gagal ditambahkan');
     }
@@ -42,7 +45,7 @@ class AlbumsService {
     }
 
     this._albums[index] = {
-      ...albums[index],
+      ...this._albums[index],
       name,
       year,
     };

@@ -1,3 +1,5 @@
+const { nanoid } = require('nanoid');
+
 class SongsService {
   constructor() {
     this._songs = [];
@@ -18,7 +20,7 @@ class SongsService {
 
     this._songs.push(newSong);
 
-    const isSuccess = this._songs.filter((song) => song.id === id) > 0;
+    const isSuccess = this._songs.filter((song) => song.id === id).length > 0;
     if (!isSuccess) {
       throw new Error('Lagu gagal ditambahkan');
     }
@@ -46,7 +48,7 @@ class SongsService {
     }
 
     this._songs[index] = {
-      ...songs[index],
+      ...this._songs[index],
       title,
       year,
       genre,

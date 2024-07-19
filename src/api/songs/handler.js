@@ -1,9 +1,13 @@
+const autoBind = require('auto-bind');
+
 class SongsHandler {
   constructor(service) {
     this._service = service;
+    autoBind(this);
   }
 
   postSongHandler(request, h) {
+    console.log('post song');
     try {
       const id = this._service.addSong(request.payload);
       const response = h.response({

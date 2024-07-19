@@ -1,6 +1,9 @@
+const autoBind = require('auto-bind');
+
 class AlbumsHandler {
   constructor(service) {
     this._service = service;
+    autoBind(this);
   }
 
   postAlbumHandler(request, h) {
@@ -29,11 +32,11 @@ class AlbumsHandler {
   getAlbumByIdHandler(request, h) {
     try {
       const { id } = request.params;
-      this._service.getAlbumById(id);
+      const album = this._service.getAlbumById(id);
       return {
         status: 'success',
         data: {
-          album: result,
+          album: album,
         },
       };
     } catch (error) {
@@ -50,7 +53,7 @@ class AlbumsHandler {
     try {
       const { id } = request.params;
       const { name, year } = request.payload;
-      this._service.addAlbum(id, { name, year });
+      this._service.editAlbumById(id, { name, year });
 
       return {
         status: 'success',
