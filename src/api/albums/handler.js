@@ -20,15 +20,6 @@ class AlbumsHandler {
     });
     response.code(201);
     return response;
-    // try {
-    // } catch (error) {
-    //   const response = h.response({
-    //     status: 'fail',
-    //     message: error.message,
-    //   });
-    //   response.code(500);
-    //   return response;
-    // }
   }
 
   getAlbumByIdHandler(request, h) {
@@ -40,15 +31,6 @@ class AlbumsHandler {
         album: album,
       },
     };
-    // try {
-    // } catch (error) {
-    //   const response = h.response({
-    //     status: 'fail',
-    //     message: error.message,
-    //   });
-    //   response.code(404);
-    //   return response;
-    // }
   }
 
   putAlbumByIdHandler(request, h) {
@@ -61,15 +43,6 @@ class AlbumsHandler {
       status: 'success',
       message: 'Berhasil update album',
     };
-    // try {
-    // } catch (error) {
-    //   const response = h.response({
-    //     status: 'fail',
-    //     message: error.message,
-    //   });
-    //   response.code(404);
-    //   return response;
-    // }
   }
 
   deleteAlbumByIdHandler(request, h) {
@@ -79,15 +52,6 @@ class AlbumsHandler {
       status: 'success',
       message: 'Berhasil menghapus id',
     };
-    // try {
-    // } catch (error) {
-    //   const response = h.response({
-    //     status: 'fail',
-    //     message: error.message,
-    //   });
-    //   response.code(404);
-    //   return response;
-    // }
   }
 }
 

@@ -18,19 +18,11 @@ class SongsHandler {
     });
     response.code(201);
     return response;
-    // try {
-    // } catch (error) {
-    //   const response = h.response({
-    //     status: 'fail',
-    //     message: 'gagal menambahkan lagu',
-    //   });
-    //   response.code(400);
-    //   return response;
-    // }
   }
 
   getSongsHandler(request, h) {
     const songs = this._service.getSongs();
+
     const filteredSongs = songs.map((song) => ({
       id: song.id,
       title: song.title,
@@ -42,8 +34,6 @@ class SongsHandler {
         songs: filteredSongs,
       },
     };
-    // try {
-    // } catch (error) {}
   }
 
   getSongByIdHandler(request, h) {
@@ -55,15 +45,6 @@ class SongsHandler {
         song: song,
       },
     };
-    // try {
-    // } catch (error) {
-    //   const response = h.response({
-    //     status: 'fail',
-    //     message: 'Id tidak ditemukan',
-    //   });
-    //   response.code(404);
-    //   return response;
-    // }
   }
 
   putSongByIdHandler(request, h) {
@@ -74,15 +55,6 @@ class SongsHandler {
       status: 'success',
       message: 'Berhasil edit lagu',
     };
-    // try {
-    // } catch (error) {
-    //   const response = h.response({
-    //     status: 'fail',
-    //     message: 'gagal edit lagu, id tidak ditemukan',
-    //   });
-    //   response.code(404);
-    //   return response;
-    // }
   }
 
   deleteSongByIdHandler(request, h) {
@@ -92,15 +64,6 @@ class SongsHandler {
       status: 'success',
       message: 'berhasil menghapus lagu',
     };
-    // try {
-    // } catch (error) {
-    //   const response = h.response({
-    //     status: 'fail',
-    //     message: 'gagal menghapus, id tidak ditemukan',
-    //   });
-    //   response.code(404);
-    //   return response;
-    // }
   }
 }
 module.exports = SongsHandler;

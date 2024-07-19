@@ -47,3 +47,6 @@ newman run Open-Music-API-V1-Test.postman_collection.json --folder 'Add Song wit
 
 menjalankan kriteria 1 dan 2
 newman run Open-Music-API-V1-Test.postman_collection.json --folder 'Add Album with Invalid Payload' --folder 'Add Album with Valid Payload' --folder 'Get Detail Album with Invalid Id' --folder 'Get Detail Album with Valid Id' --folder 'Edit Album with Invalid Payload' --folder 'Edit Album with Invalid Id' --folder 'Edit Album with Valid Id' --folder 'Delete Album with Invalid Id' --folder 'Delete Album with Valid Id' --folder 'Add Song with Invalid Payload' --folder 'Add Song with Valid Payload' --folder '[No Test] Add Song with Valid Payload' --folder 'Get All Songs' --folder 'Get Detail Songs with Invalid Id' --folder 'Get Detail Songs with Valid Id' --folder 'Edit Song with Invalid Payload' --folder 'Edit Song with Invalid Id' --folder 'Edit Song with Valid Id' --folder 'Delete Song with Invalid Id' --folder 'Delete Song with Valid Id' --environment OpenMusic-API-Test.postman_environment.json
+
+search query:
+newman run Open-Music-API-V1-Test.postman_collection.json --folder 'Add Song A' --folder 'Add Song B' --folder 'Add Song C' --folder 'Add Song D' --folder 'Seach Song using Title' --folder 'Seach Song using Performer' --folder 'Seach Song using Title and Performer' --environment OpenMusic-API-Test.postman_environment.json
