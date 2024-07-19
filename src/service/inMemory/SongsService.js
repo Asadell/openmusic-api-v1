@@ -1,4 +1,4 @@
-class SongService {
+class SongsService {
   constructor() {
     this._songs = [];
   }
@@ -65,3 +65,4 @@ class SongService {
     this._songs.splice(index, 1);
   }
 }
+module.exports = SongsService;

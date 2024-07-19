@@ -57,3 +57,4 @@ class AlbumService {
     this._albums.splice(index, 1);
   }
 }
+module.exports = AlbumsService;
