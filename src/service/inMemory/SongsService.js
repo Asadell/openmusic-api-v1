@@ -6,7 +6,7 @@ class SongsService {
   }
 
   addSong({ title, year, genre, performer, duration, albumId }) {
-    const id = nanoid(16);
+    const id = 'song-' + nanoid(16);
 
     const newSong = {
       id,
