@@ -3,6 +3,14 @@ const albums = require('./albums');
 
 const addAlbumHandler = (request, h) => {
   const { name, year } = request.payload;
+  if (!isOk(name, year)) {
+    const response = h.response({
+      status: 'fail',
+      message: 'gagal menambah album, tipe input salah',
+    });
+    response.code(400);
+    return response;
+  }
   const id = nanoid(16);
 
   const newAlbum = { id, name, year };
@@ -53,8 +61,16 @@ const getAlbumByIdHandler = (request, h) => {
 const editAlbumByIdHandler = (request, h) => {
   const { id } = request.params;
   const { name, year } = request.payload;
+  if (!isOk(name, year)) {
+    const response = h.response({
+      status: 'fail',
+      message: 'gagal menambah album, tipe input salah',
+    });
+    response.code(400);
+    return response;
+  }
 
-  const index = albums.findIndex((album) => (album.id = id));
+  const index = albums.findIndex((album) => album.id === id);
 
   if (index !== -1) {
     albums[index] = {
@@ -63,12 +79,10 @@ const editAlbumByIdHandler = (request, h) => {
       year,
     };
 
-    const response = h.response({
+    return {
       status: 'success',
       message: 'Berhasil update album',
-    });
-    response.code(200);
-    return response;
+    };
   }
 
   const response = h.response({
@@ -99,6 +113,11 @@ const deleteAlbumByIdHandler = (request, h) => {
   response.code(404);
   return response;
 };
+
+function isOk(name, year) {
+  console.log(typeof name === 'string' && typeof year === 'number');
+  return typeof name === 'string' && typeof year === 'number';
+}
 
 module.exports = {
   addAlbumHandler,
