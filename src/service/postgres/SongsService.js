@@ -3,7 +3,6 @@ const { Pool } = require('pg');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const InvariantError = require('../../exceptions/InvariantError');
 const { mapDBToModelSong } = require('../../utils');
-let c = 1;
 class SongsService {
   constructor() {
     this._pool = new Pool();
@@ -45,7 +44,6 @@ class SongsService {
       values,
     };
     const result = await this._pool.query(query);
-    console.log(result.rows);
     return result.rows.map(mapDBToModelSong);
   }
 
