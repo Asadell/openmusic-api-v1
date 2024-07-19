@@ -3,7 +3,7 @@ const { Pool } = require('pg');
 const NotFoundError = require('../../exceptions/NotFoundError');
 const InvariantError = require('../../exceptions/InvariantError');
 const { mapDBToModelSong } = require('../../utils');
-
+let c = 1;
 class SongsService {
   constructor() {
     this._pool = new Pool();
@@ -26,8 +26,26 @@ class SongsService {
     return result.rows[0].id;
   }
 
-  async getSongs() {
-    const result = await this._pool.query('SELECT * FROM songs');
+  async getSongs(title, performer) {
+    let queryText = 'SELECT id, title, performer FROM songs WHERE 1=1';
+    const values = [];
+
+    if (title) {
+      queryText += ' AND title ILIKE $1';
+      values.push(`%${title}%`);
+    }
+
+    if (performer) {
+      queryText += ` AND performer ILIKE $${values.length + 1}`;
+      values.push(`%${performer}%`);
+    }
+
+    const query = {
+      text: queryText,
+      values,
+    };
+    const result = await this._pool.query(query);
+    console.log(result.rows);
     return result.rows.map(mapDBToModelSong);
   }
 
