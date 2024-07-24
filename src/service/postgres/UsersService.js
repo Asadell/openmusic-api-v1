@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
-const InvariantError = require('../../exceptions/InvariantError');
-const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
+const { nanoid } = require('nanoid');
+const InvariantError = require('../../exceptions/InvariantError');
 const AuthenticationError = require('../../exceptions/AuthenticationError');
 
 class UsersService {
@@ -38,7 +38,7 @@ class UsersService {
 
     if (result.rows.length) {
       throw new InvariantError(
-        'Gagal menambahkan user. Username sudah digunakan.'
+        'Gagal menambahkan user. Username sudah digunakan.',
       );
     }
   }

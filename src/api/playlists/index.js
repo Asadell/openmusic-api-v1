@@ -6,12 +6,12 @@ module.exports = {
   version: '1.0.0',
   register: async (
     server,
-    { playlistsService, activitiesService, validator }
+    { playlistsService, activitiesService, validator },
   ) => {
     const playlistsHandler = new PlaylistsHandler(
       playlistsService,
       activitiesService,
-      validator
+      validator,
     );
     server.route(routes(playlistsHandler));
   },

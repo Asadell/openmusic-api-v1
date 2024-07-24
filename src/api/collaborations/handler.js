@@ -16,20 +16,20 @@ class CollaborationsHandler {
     await this._playlistsService.verifyPlaylistOwner(playlistId, credentialId);
     const collaborationId = await this._collaborationsService.addCollaboration(
       playlistId,
-      userId
+      userId,
     );
 
     const response = h.response({
       status: 'success',
       data: {
-        collaborationId: collaborationId,
+        collaborationId,
       },
     });
     response.code(201);
     return response;
   }
 
-  async deleteCollaborationHandler(request, h) {
+  async deleteCollaborationHandler(request) {
     this._validator.validateCollaborationPayload(request.payload);
     const { playlistId, userId } = request.payload;
     const { id: credentialId } = request.auth.credentials;
