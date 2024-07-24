@@ -2,6 +2,7 @@ require('dotenv').config();
 const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
 const TokenManager = require('./tokenize/TokenManager');
+const ClientError = require('./exceptions/ClientError');
 
 const albums = require('./api/albums');
 const AlbumsService = require('./service/postgres/AlbumsService');
@@ -23,14 +24,17 @@ const playlists = require('./api/playlists');
 const PlaylistsService = require('./service/postgres/PlaylistsService');
 const PlaylistsValidator = require('./validator/playlists');
 
-const ClientError = require('./exceptions/ClientError');
+const collaborations = require('./api/collaborations');
+const CollaborationsService = require('./service/postgres/CollaborationsService');
+const CollaborationsValidator = require('./validator/collaborations');
 
 const init = async () => {
   const songsService = new SongsService();
   const albumsService = new AlbumsService();
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();
-  const playlistsService = new PlaylistsService();
+  const collaborationsService = new CollaborationsService();
+  const playlistsService = new PlaylistsService(collaborationsService);
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -40,9 +44,6 @@ const init = async () => {
         origin: ['*'],
       },
     },
-    // debug: {
-    //   request: ['error'],
-    // },
   });
 
   await server.register([
@@ -103,6 +104,14 @@ const init = async () => {
         usersService,
         tokenManager: TokenManager,
         validator: AuthenticationsValidator,
+      },
+    },
+    {
+      plugin: collaborations,
+      options: {
+        collaborationsService,
+        playlistsService,
+        validator: CollaborationsValidator,
       },
     },
   ]);

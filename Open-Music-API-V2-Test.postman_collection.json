@@ -4750,6 +4750,1331 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "[Optional] Collaborations Playlist",
+      "item": [
+        {
+          "name": "[No test] Prerequisite",
+          "item": [
+            {
+              "name": "Add Song A",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const { data: { songId } } = pm.response.json();\r",
+                      "pm.environment.set('songIdA', songId);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\": \"Life in Technicolor\",\r\n    \"year\": 2008,\r\n    \"performer\": \"Coldplay\",\r\n    \"genre\": \"Pop\",\r\n    \"duration\": 120\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:{{port}}/songs",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "{{port}}",
+                  "path": ["songs"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Add Song B",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const { data: { songId } } = pm.response.json();\r",
+                      "pm.environment.set('songIdB', songId);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\": \"Fix You\",\r\n    \"year\": 2008,\r\n    \"performer\": \"Coldplay\",\r\n    \"genre\": \"Pop\",\r\n    \"duration\": 120\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:{{port}}/songs",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "{{port}}",
+                  "path": ["songs"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Add User John",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\": \"john\",\r\n    \"password\": \"secret\",\r\n    \"fullname\": \"John Doe\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:{{port}}/users",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "{{port}}",
+                  "path": ["users"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Add User Tom",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const { data: { userId } } = pm.response.json();\r",
+                      "pm.environment.set('userIdTom', userId);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const usernameTom = `tom${+ new Date()}`;\r",
+                      "pm.environment.set('usernameTom', usernameTom);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\": \"{{usernameTom}}\",\r\n    \"password\": \"secret\",\r\n    \"fullname\": \"Tom Riddle\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:{{port}}/users",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "{{port}}",
+                  "path": ["users"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Login with User John",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const { data: { accessToken } } = pm.response.json();\r",
+                      "pm.environment.set('accessTokenJohn', accessToken);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\": \"john\",\r\n    \"password\": \"secret\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:{{port}}/authentications",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "{{port}}",
+                  "path": ["authentications"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Login with User Tom",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const { data: { accessToken } } = pm.response.json();\r",
+                      "pm.environment.set('accessTokenTom', accessToken);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\": \"{{usernameTom}}\",\r\n    \"password\": \"secret\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:{{port}}/authentications",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "{{port}}",
+                  "path": ["authentications"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "(John) Create Playlist",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const responseJson = pm.response.json();\r",
+                      "pm.environment.set('playlistIdJohn', responseJson.data.playlistId);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessTokenJohn}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Lagu Indie Hits Indonesia\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:{{port}}/playlists",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "{{port}}",
+                  "path": ["playlists"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Make Collaborator without Authentication",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 401 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(401);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"playlistId\": \"{{playlistIdJohn}}\",\r\n    \"userId\": \"{{userIdTom}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/collaborations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["collaborations"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(John) Make Collaboration in Playlist with Not Found User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 404 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('fail');\r",
+                  "    pm.expect(responseJson.message).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenJohn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"playlistId\": \"{{playlistIdJohn}}\",\r\n    \"userId\": \"xxx\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/collaborations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["collaborations"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(John) Make Collaboration in Not Found Playlist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 404 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('fail');\r",
+                  "    pm.expect(responseJson.message).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenJohn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"playlistId\": \"xxx\",\r\n    \"userId\": \"{{userIdTom}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/collaborations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["collaborations"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(Tom) Make Collaboration in John Playlist by His Own",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 403 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(403);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('fail');\r",
+                  "    pm.expect(responseJson.message).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenTom}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"playlistId\": \"{{playlistIdJohn}}\",\r\n    \"userId\": \"{{userIdTom}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/collaborations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["collaborations"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(John) Make Collaboration in Playlist with Tom",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 201 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('success');\r",
+                  "    pm.expect(responseJson.data).to.be.an('object');\r",
+                  "    pm.expect(responseJson.data.collaborationId).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenJohn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"playlistId\": \"{{playlistIdJohn}}\",\r\n    \"userId\": \"{{userIdTom}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/collaborations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["collaborations"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(Tom) Get All Playlists",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 200 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('success');\r",
+                  "    pm.expect(responseJson.data).to.be.an('object');\r",
+                  "    pm.expect(responseJson.data.playlists).to.be.an('array');\r",
+                  "    pm.expect(responseJson.data.playlists).to.length(1);\r",
+                  "\r",
+                  "    const { playlists } = responseJson.data;\r",
+                  "    playlists.forEach((playlist) => {\r",
+                  "        pm.expect(Object.keys(playlist)).to.length(3);\r",
+                  "        pm.expect(playlist.id).to.be.ok;\r",
+                  "        pm.expect(playlist.name).to.be.ok;\r",
+                  "        pm.expect(playlist.username).to.equal('john');\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenTom}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/playlists",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["playlists"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(Tom) Add Song A to John Playlist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 201 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('success');\r",
+                  "    pm.expect(responseJson.message).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenTom}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"songId\": \"{{songIdA}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/playlists/{{playlistIdJohn}}/songs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["playlists", "{{playlistIdJohn}}", "songs"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(Tom) Add Song B to John Playlist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 201 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('success');\r",
+                  "    pm.expect(responseJson.message).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenTom}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"songId\": \"{{songIdB}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/playlists/{{playlistIdJohn}}/songs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["playlists", "{{playlistIdJohn}}", "songs"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(Tom) Get John Playlist Songs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 200 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('success');\r",
+                  "    pm.expect(responseJson.data).to.be.an('object');\r",
+                  "    pm.expect(responseJson.data.playlist).to.be.an('object');\r",
+                  "    pm.expect(responseJson.data.playlist.id).to.be.a('string');\r",
+                  "    pm.expect(responseJson.data.playlist.name).to.equal('Lagu Indie Hits Indonesia');\r",
+                  "    pm.expect(responseJson.data.playlist.username).to.equal('john');\r",
+                  "    \r",
+                  "    pm.expect(responseJson.data.playlist.songs).to.be.an('array');\r",
+                  "    pm.expect(responseJson.data.playlist.songs).to.length(2);\r",
+                  "    const { songs } = responseJson.data.playlist;\r",
+                  "    songs.forEach((song) => {\r",
+                  "        pm.expect(Object.keys(song)).to.length(3);\r",
+                  "        pm.expect(song.id).to.be.ok;\r",
+                  "        pm.expect(song.title).to.be.ok;\r",
+                  "        pm.expect(song.performer).to.be.ok;\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenTom}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/playlists/{{playlistIdJohn}}/songs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["playlists", "{{playlistIdJohn}}", "songs"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(Tom) Delete Song A from John Playlist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 200 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('success');\r",
+                  "    pm.expect(responseJson.message).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenTom}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"songId\": \"{{songIdA}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/playlists/{{playlistIdJohn}}/songs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["playlists", "{{playlistIdJohn}}", "songs"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(Tom) Delete John Playlist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 403 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(403);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('fail');\r",
+                  "    pm.expect(responseJson.message).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenTom}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"songId\": \"{{songIdA}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/playlists/{{playlistIdJohn}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["playlists", "{{playlistIdJohn}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(Tom) Delete Collaboration in Playlist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 403 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(403);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('fail');\r",
+                  "    pm.expect(responseJson.message).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenTom}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"playlistId\": \"{{playlistIdJohn}}\",\r\n    \"userId\": \"{{userIdTom}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/collaborations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["collaborations"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(John) Delete Collaboration in Playlist with Tom",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 200 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('success');\r",
+                  "    pm.expect(responseJson.message).to.be.an('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenJohn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"playlistId\": \"{{playlistIdJohn}}\",\r\n    \"userId\": \"{{userIdTom}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/collaborations",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["collaborations"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(Tom) Get All Playlists after Collaboration Deletion",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 200 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('success');\r",
+                  "    pm.expect(responseJson.data).to.be.an('object');\r",
+                  "    pm.expect(responseJson.data.playlists).to.be.an('array');\r",
+                  "    pm.expect(responseJson.data.playlists).to.length(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenTom}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/playlists",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["playlists"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(Tom) Add Song to John Playlist after Collaboration Deletion",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 403 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(403);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('fail');\r",
+                  "    pm.expect(responseJson.message).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenTom}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"songId\": \"{{songIdA}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/playlists/{{playlistIdJohn}}/songs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["playlists", "{{playlistIdJohn}}", "songs"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "(John) Delete Playlist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('it should response 200 status code', () => {\r",
+                  "    pm.expect(pm.response).to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response Content-Type header should have application/json value', () => {\r",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.includes('application/json');\r",
+                  "}); \r",
+                  "\r",
+                  "pm.test('response body should an object', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('response body have correct property and value', () => {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(responseJson.status).to.equal('success');\r",
+                  "    pm.expect(responseJson.message).to.be.a('string')\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessTokenJohn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/playlists/{{playlistIdJohn}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{port}}",
+              "path": ["playlists", "{{playlistIdJohn}}"]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

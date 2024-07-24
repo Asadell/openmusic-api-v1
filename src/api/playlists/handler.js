@@ -56,8 +56,7 @@ class PlaylistsHandler {
     const { songId } = request.payload;
     const { id: credentialId } = request.auth.credentials;
 
-    // nanti ganti 'verifyPlaylistOwner' ke /verifyPlaylistACCESS'
-    await this._service.verifyPlaylistOwner(playlistId, credentialId);
+    await this._service.verifyPlaylistAccess(playlistId, credentialId);
     await this._service.addSongToPlaylist(playlistId, songId);
 
     const response = h.response({
@@ -72,7 +71,7 @@ class PlaylistsHandler {
     const { id: playlistId } = request.params;
     const { id: credentialId } = request.auth.credentials;
 
-    await this._service.verifyPlaylistOwner(playlistId, credentialId);
+    await this._service.verifyPlaylistAccess(playlistId, credentialId);
     const playlistDetails = await this._service.getSongsInPlaylistById(
       playlistId
     );
@@ -91,7 +90,7 @@ class PlaylistsHandler {
     const { id: credentialId } = request.auth.credentials;
     const { songId } = request.payload;
 
-    await this._service.verifyPlaylistOwner(playlistId, credentialId);
+    await this._service.verifyPlaylistAccess(playlistId, credentialId);
     await this._service.deleteSongFromPlaylistById(songId);
 
     return {
@@ -99,8 +98,6 @@ class PlaylistsHandler {
       message: 'Lagu berhasil dihapus dari playlist',
     };
   }
-  // - lanjutin handler ini
-  // - lanjutin restricted nya
 }
 
 module.exports = PlaylistsHandler;
