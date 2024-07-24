@@ -28,5 +28,6 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
+  pgm.dropConstraint('collaborations', 'unique_playlist_id_and_user_id');
   pgm.dropTable('collaborations');
 };

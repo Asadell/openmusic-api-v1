@@ -47,7 +47,6 @@ class PlaylistsService {
       text: 'DELETE FROM playlists WHERE id = $1 RETURNING id',
       values: [playlistId],
     };
-
     const result = await this._pool.query(query);
 
     if (!result.rows.length) {
