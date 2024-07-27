@@ -49,7 +49,7 @@ class PlaylistsService {
     };
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new AuthenticationError('Playlist tidak ditemukan');
     }
   }
@@ -62,7 +62,7 @@ class PlaylistsService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new NotFoundError('Playlist tidak ditemukan');
     }
 
@@ -95,7 +95,7 @@ class PlaylistsService {
 
     const songResult = await this._pool.query(songQuery);
 
-    if (!songResult.rows.length) {
+    if (!songResult.rowCount) {
       throw new NotFoundError('Lagu tidak ditemukan');
     }
 
@@ -121,7 +121,7 @@ class PlaylistsService {
 
     const playlistResult = await this._pool.query(playlistQuery);
 
-    if (!playlistResult.rows.length) {
+    if (!playlistResult.rowCount) {
       throw new NotFoundError('Playlist tidak ditemukan');
     }
 
@@ -141,7 +141,7 @@ class PlaylistsService {
 
     const songsResult = await this._pool.query(songsQuery);
 
-    if (!songsResult.rows.length) {
+    if (!songsResult.rowCount) {
       throw new NotFoundError('Tidak ada lagu di playlist');
     }
 
@@ -166,7 +166,7 @@ class PlaylistsService {
     };
 
     const result = await this._pool.query(query);
-    if (!result.rows.length) {
+    if (!result.rowCount) {
       throw new InvariantError('Gagal menghapus lagu di playlist');
     }
   }
