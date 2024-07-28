@@ -30,13 +30,13 @@ const routes = (handler) => [
         allow: 'multipart/form-data',
         multipart: true,
         output: 'stream',
-        maxBytes: 500 * 1024,
+        maxBytes: 512000,
       },
     },
   },
   {
     method: 'GET',
-    path: '/upload/{param*}',
+    path: '/albums/{param*}',
     handler: {
       directory: {
         path: path.resolve(__dirname, 'file'),

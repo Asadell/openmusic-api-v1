@@ -69,6 +69,7 @@ class PlaylistSongActivitiesService {
       await this._cacheService.set(
         `playlistactivities:${playlistId}`,
         JSON.stringify(data),
+        1800,
       );
 
       return {
