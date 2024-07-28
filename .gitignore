@@ -129,3 +129,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# exclude everything
+src/api/albums/file/images/*
+# exception to the rule
+!/src/api/albums/file/images/.gitkeep 
