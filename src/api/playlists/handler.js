@@ -65,7 +65,7 @@ class PlaylistsHandler {
     await this._activitiesService.addPlaylistSongActivities(
       playlistId,
       songId,
-      credentialId,
+      credentialId
     );
 
     const response = h.response({
@@ -82,7 +82,7 @@ class PlaylistsHandler {
 
     await this._playlistsService.verifyPlaylistAccess(playlistId, credentialId);
     const playlistDetails = await this._playlistsService.getSongsInPlaylistById(
-      playlistId,
+      playlistId
     );
 
     return {
@@ -104,7 +104,7 @@ class PlaylistsHandler {
     await this._activitiesService.deletePlaylistSongActivities(
       playlistId,
       songId,
-      credentialId,
+      credentialId
     );
 
     return {
@@ -113,19 +113,26 @@ class PlaylistsHandler {
     };
   }
 
-  async getPlaylistActivitiesByIdHandler(request) {
+  async getPlaylistActivitiesByIdHandler(request, h) {
     const { id: playlistId } = request.params;
     const { id: credentialId } = request.auth.credentials;
 
     await this._playlistsService.verifyPlaylistAccess(playlistId, credentialId);
-    const activities = await this._activitiesService.getPlaylistActivitiesById(
-      playlistId,
-    );
+    const { isCache, data } =
+      await this._activitiesService.getPlaylistActivitiesById(playlistId);
 
-    return {
+    const response = h.response({
       status: 'success',
-      data: activities,
-    };
+      data,
+    });
+
+    if (isCache) {
+      response.header('X-Data-Source', 'cache');
+    } else {
+      response.header('X-Data-Source', 'not-cache');
+    }
+
+    return response;
   }
 }
 

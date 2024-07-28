@@ -43,5 +43,26 @@ const routes = (handler) => [
       },
     },
   },
+  {
+    method: 'POST',
+    path: '/albums/{id}/likes',
+    handler: handler.postAlbumLikeByIdHandler,
+    options: {
+      auth: 'playlistsapp_jwt',
+    },
+  },
+  {
+    method: 'DELETE',
+    path: '/albums/{id}/likes',
+    handler: handler.deleteAlbumLikeByIdHandler,
+    options: {
+      auth: 'playlistsapp_jwt',
+    },
+  },
+  {
+    method: 'GET',
+    path: '/albums/{id}/likes',
+    handler: handler.getAlbumLikeCountHandler,
+  },
 ];
 module.exports = routes;

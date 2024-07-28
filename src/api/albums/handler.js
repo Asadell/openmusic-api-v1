@@ -27,12 +27,14 @@ class AlbumsHandler {
       },
     });
     response.code(201);
+
     return response;
   }
 
   async getAlbumByIdHandler(request) {
     const { id } = request.params;
     const album = await this._albumsService.getAlbumById(id);
+
     return {
       status: 'success',
       data: {
@@ -56,6 +58,7 @@ class AlbumsHandler {
   async deleteAlbumByIdHandler(request) {
     const { id } = request.params;
     await this._albumsService.deleteAlbumById(id);
+
     return {
       status: 'success',
       message: 'Berhasil menghapus id',
@@ -76,6 +79,59 @@ class AlbumsHandler {
       message: 'Sampul berhasil diunggah',
     });
     response.code(201);
+
+    return response;
+  }
+
+  async postAlbumLikeByIdHandler(request, h) {
+    const { id: albumId } = request.params;
+    const { id: userId } = request.auth.credentials;
+
+    await this._albumsService.isAlbumExistById(albumId);
+    await this._albumsService.isAlbumLikedByUser(userId, albumId);
+    await this._albumsService.addAlbumLikeById(userId, albumId);
+
+    const response = h.response({
+      status: 'success',
+      message: 'Like added successfully',
+    });
+    response.code(201);
+
+    return response;
+  }
+
+  async deleteAlbumLikeByIdHandler(request) {
+    const { id: albumId } = request.params;
+    const { id: userId } = request.auth.credentials;
+
+    await this._albumsService.deleteAlbumLikeById(userId, albumId);
+
+    return {
+      status: 'success',
+      message: 'Like removed successfully',
+    };
+  }
+
+  async getAlbumLikeCountHandler(request, h) {
+    const { id: albumId } = request.params;
+
+    const { isCache, result } = await this._albumsService.getAlbumLikeCount(
+      albumId
+    );
+
+    const response = h.response({
+      status: 'success',
+      data: {
+        likes: result,
+      },
+    });
+
+    if (isCache) {
+      response.header('X-Data-Source', 'cache');
+    } else {
+      response.header('X-Data-Source', 'not-cache');
+    }
+
     return response;
   }
 }

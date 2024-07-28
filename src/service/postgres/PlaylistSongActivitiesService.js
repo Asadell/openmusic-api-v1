@@ -2,8 +2,9 @@ const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
 
 class PlaylistSongActivitiesService {
-  constructor() {
+  constructor(cacheService) {
     this._pool = new Pool();
+    this._cacheService = cacheService;
   }
 
   async addPlaylistSongActivities(playlistId, songId, userId) {
@@ -16,6 +17,7 @@ class PlaylistSongActivitiesService {
     };
 
     await this._pool.query(query);
+    await this._cacheService.delete(`playlistactivities:${playlistId}`);
   }
 
   async deletePlaylistSongActivities(playlistId, songId, userId) {
@@ -28,30 +30,52 @@ class PlaylistSongActivitiesService {
     };
 
     await this._pool.query(query);
+    await this._cacheService.delete(`playlistactivities:${playlistId}`);
   }
 
   async getPlaylistActivitiesById(playlistId) {
-    const query = {
-      text: `SELECT u.username, s.title, a.action, a.time 
-      FROM playlist_song_activities a 
-      JOIN users u ON u.id = a.user_id 
-      JOIN songs s ON s.id = a.song_id 
-      WHERE a.playlist_id = $1`,
-      values: [playlistId],
-    };
+    try {
+      const data = await this._cacheService.get(
+        `playlistactivities:${playlistId}`
+      );
+      return {
+        isCache: true,
+        data: JSON.parse(data),
+      };
+    } catch (error) {
+      const query = {
+        text: `SELECT u.username, s.title, a.action, a.time 
+        FROM playlist_song_activities a 
+        JOIN users u ON u.id = a.user_id 
+        JOIN songs s ON s.id = a.song_id 
+        WHERE a.playlist_id = $1`,
+        values: [playlistId],
+      };
 
-    const result = await this._pool.query(query);
+      const result = await this._pool.query(query);
 
-    const activities = result.rows.map((data) => ({
-      username: data.username,
-      title: data.title,
-      action: data.action,
-      time: data.time,
-    }));
-    return {
-      playlistId,
-      activities,
-    };
+      const activities = result.rows.map((data) => ({
+        username: data.username,
+        title: data.title,
+        action: data.action,
+        time: data.time,
+      }));
+
+      const data = {
+        playlistId,
+        activities,
+      };
+
+      await this._cacheService.set(
+        `playlistactivities:${playlistId}`,
+        JSON.stringify(data)
+      );
+
+      return {
+        isCache: false,
+        data,
+      };
+    }
   }
 }
 
