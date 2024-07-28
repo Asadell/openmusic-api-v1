@@ -171,7 +171,7 @@ class AlbumsService {
 
       await this._cacheService.set(
         `albumlike:${albumId}`,
-        JSON.stringify(result)
+        JSON.stringify(result),
       );
 
       return {

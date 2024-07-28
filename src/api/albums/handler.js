@@ -6,7 +6,7 @@ class AlbumsHandler {
     albumsService,
     storageService,
     albumsValidator,
-    uploadsValidator
+    uploadsValidator,
   ) {
     this._albumsService = albumsService;
     this._storageService = storageService;
@@ -116,7 +116,7 @@ class AlbumsHandler {
     const { id: albumId } = request.params;
 
     const { isCache, result } = await this._albumsService.getAlbumLikeCount(
-      albumId
+      albumId,
     );
 
     const response = h.response({

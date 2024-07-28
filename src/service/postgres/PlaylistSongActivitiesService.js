@@ -36,7 +36,7 @@ class PlaylistSongActivitiesService {
   async getPlaylistActivitiesById(playlistId) {
     try {
       const data = await this._cacheService.get(
-        `playlistactivities:${playlistId}`
+        `playlistactivities:${playlistId}`,
       );
       return {
         isCache: true,
@@ -68,7 +68,7 @@ class PlaylistSongActivitiesService {
 
       await this._cacheService.set(
         `playlistactivities:${playlistId}`,
-        JSON.stringify(data)
+        JSON.stringify(data),
       );
 
       return {
